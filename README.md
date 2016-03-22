@@ -13,4 +13,5 @@ A forsenics tool to show past connected Networks.
 It will display Mac Address and SSID of past connected wifi networks for forensic purposes.
 
 #Python ChromeDome
-Displays saved passwords stored in Google Chrome
+Displays saved usernames, passwords, hostory, keyword search, and credit card data stored in Google Chrome.
+Browser needs to be closed when running this tool.
