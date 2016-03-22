@@ -8,4 +8,5 @@ Dictionary file needs to be in same directory as python script to run.
 #Python Port Scanner
 Does a port scan on specified host and returns if port is open or closed. It also does a banner grab to try to determine service and version. Usage: PyScan.py -H 192.x.x.x -p 21 (you can specify IP address or website
 
-#Python Wifispy is a forsenics tool to show pastconnected Networks - will display Mac Address of AP and can be used to determine Pyshical location of connection
+#Python Wifispy is a forsenics tool to show pastconnected Networks 
+It will display Mac Address of APs and can be used to determine geo location of connection
