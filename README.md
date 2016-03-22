@@ -10,4 +10,4 @@ Does a port scan on specified host and returns if port is open or closed. It als
 
 #Python Wifispy 
 A forsenics tool to show past connected Networks.
-It will display Mac Address of APs and can be used to determine geo location of connection
+It will display Mac Address and SSID of past connected wifi networks for forensic purposes.
